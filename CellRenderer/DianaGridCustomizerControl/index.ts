@@ -1,8 +1,8 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import { PAOneGridCustomizer } from "./Customizer/types";
-import { cellRendererOverrides } from "./Customizer/CellRendererOverrides";
-import { cellEditorOverrides } from "./Customizer/CellEditorOverrides";
+import {  generateCellRendererOverrides } from "./Customizer/CellRendererOverrides";
+import {  generateCellEditorOverrides } from "./Customizer/CellEditorOverrides";
 
 export class DianaGridCustomizerControl implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -26,10 +26,21 @@ export class DianaGridCustomizerControl implements ComponentFramework.ReactContr
         state: ComponentFramework.Dictionary
     ): void {
         const eventName = context.parameters.EventName.raw;
-        if (eventName) {
-            const paOneGridCustomizer: PAOneGridCustomizer = { cellRendererOverrides, cellEditorOverrides };
-            (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
-        }
+        context.utils.getEntityMetadata("diana_pcftester", ["diana_technologycode"]).then((metadata)=>{
+            const options = metadata.Attributes.get("diana_technologycode")?.attributeDescriptor.OptionSet as Array<any>|null|undefined;          
+            const colors = options?.reduce((prev, current)=>{
+                return {...prev, [current.Value] : current.Color}
+            }, {}) ?? {};
+
+          
+            if (eventName) {
+                const paOneGridCustomizer: PAOneGridCustomizer = { 
+                    cellRendererOverrides: generateCellRendererOverrides(colors), 
+                    cellEditorOverrides : generateCellEditorOverrides(colors)
+                };
+                (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
+            }                
+        })
     }
 
     /**
