@@ -13,7 +13,7 @@ export const generateCellRendererOverrides = (colors : any) => {
             }
             return null;
         },
-        ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
+        ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {            
            const onCellClicked = (event?: React.MouseEvent<HTMLElement, MouseEvent> | MouseEvent) => {
                 if(props.startEditing) props.startEditing();
                 console.log("onCellClicked----------");
