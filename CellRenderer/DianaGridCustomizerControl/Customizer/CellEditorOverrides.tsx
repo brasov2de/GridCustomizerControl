@@ -39,7 +39,7 @@ export const generateCellEditorOverrides = (colors : any)=>{
           rendererParams.onCellValueChanged(value ? "0" : "1");      
           rendererParams.stopEditing(false);
         }
-        return <div onClick={onChange}><Icon iconName={smiley} style={{color: value === true ? "green" : "red"}}></Icon>{label}</div>
+        return <div onClick={onChange} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: value === true ? "green" : "red"}}></Icon></div>
       }
     }
   }

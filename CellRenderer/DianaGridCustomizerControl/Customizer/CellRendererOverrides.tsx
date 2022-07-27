@@ -31,7 +31,7 @@ export const generateCellRendererOverrides = (colors : any) => {
                 } 
              const smiley = props.value === "1" ? "Emoji2" : "Sad";
               const label = props.value === "1" ? (column as any).customizerParams.labels.onText : (column as any).customizerParams.labels.offText;             
-              return <div onClick={onCellClicked}><Icon iconName={smiley} style={{color: props.value === "1" ? "green" : "red"}}></Icon>{label}</div>
+              return <div onClick={onCellClicked} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: props.value === "1" ? "green" : "red"}}></Icon></div>
             }
           }
     }
