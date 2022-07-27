@@ -24,13 +24,13 @@ export const generateCellRendererOverrides = (colors : any) => {
             </div>)             
         }, 
         ["TwoOptions"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {     
-            const column = rendererParams.colDefs[rendererParams.columnIndex];             
+            const column = rendererParams.colDefs[rendererParams.columnIndex];                         
             if(column.name==="diana_ishappy"){                      
                 const onCellClicked = () => {
                     if(props.startEditing) props.startEditing();                  
                 } 
              const smiley = props.value === "1" ? "Emoji2" : "Sad";
-              const label = props.value === "1" ? (column as any).customizerParams.labels.onText : (column as any).customizerParams.labels.offText;             
+              const label = props.formattedValue;
               return <div onClick={onCellClicked} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: props.value === "1" ? "green" : "red"}}></Icon></div>
             }
           }
