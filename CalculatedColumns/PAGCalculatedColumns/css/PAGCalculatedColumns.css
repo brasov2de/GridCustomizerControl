@@ -1,0 +1,15 @@
+.ORBIS\.PAGCalculatedColumns div{
+ padding-top: 5px;
+}
+
+.ORBIS\.PAGCalculatedColumns .overdue{
+    border-left: 5px solid tomato;
+    border-radius: 5px;
+    padding-left: 2px;
+   }
+
+.ORBIS\.PAGCalculatedColumns .regular{
+   border-left: 5px solid green;
+   border-radius: 5px;
+   padding-left: 2px;   
+ }
