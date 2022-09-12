@@ -16,12 +16,10 @@ export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCac
                     `<attribute name="entityimage_url"/>`,
                     `<attribute name="fullname"/>`,            
                     `<attribute name="systemuserid"/>`,            
-                    `<link-entity name="diana_pcftester_systemuser" intersect="true" visible="false" to="systemuserid" from="systemuserid">`,
-                        `<link-entity name="diana_pcftester" from="diana_pcftesterid" to="diana_pcftesterid" alias="bb">`,
-                            `<filter type="and">`,
-                                `<condition attribute="diana_pcftesterid" operator="eq" uitype="diana_pcftester" value="${parentId}"/>`,
-                            `</filter>`,
-                        `</link-entity>`,
+                    `<link-entity name="diana_pcftester_systemuser" intersect="true" visible="false" to="systemuserid" from="systemuserid">`,                       
+                        `<filter type="and">`,
+                            `<condition attribute="diana_pcftesterid" operator="eq" uitype="diana_pcftester" value="${parentId}"/>`,
+                        `</filter>`,                       
                     `</link-entity>`,
                 `</entity>`,
             `</fetch>`].join('')).then((result)=>{
@@ -35,5 +33,5 @@ export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCac
         }
         }, [parentId]);
 
-    return <>{loading === true ? "..." : people.length}</>
+    return <div>{loading === true ? "..." : people.map((person)=> person.entityimage_url ? <img src={person.entityimage_url} style={{height: "32px", width:"32px", backgroundColor: "gray", borderRadius: "15px", margin: "1px"}}/>: null) }</div>
 });

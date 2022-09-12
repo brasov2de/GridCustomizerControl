@@ -13,7 +13,7 @@ export const generateCellRendererOverrides = (context: ComponentFramework.Contex
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {             
             const {columnIndex, colDefs, rowData } = rendererParams;         
             const columnName = colDefs[columnIndex].name;     
-            if(columnName !== "crec8_city"){
+            if(columnName !== "diana_relatedusers"){
                 return null;
             }
             const parentId = rowData?.[RECID];

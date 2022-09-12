@@ -5,10 +5,10 @@ import * as React from "react";
 import { PAOneGridCustomizer } from "./PAGridTypes";
 import { generateCellRendererOverrides } from "./CellRendererOverrides";
 
-const peopleCache: { [key: string]: any } = {};
+
 
 export class PAGridRelatedRows implements ComponentFramework.ReactControl<IInputs, IOutputs> {
-    
+    private peopleCache: { [key: string]: any } = {};
 
     /**
      * Empty constructor.
@@ -30,7 +30,7 @@ export class PAGridRelatedRows implements ComponentFramework.ReactControl<IInput
         const eventName = context.parameters.EventName.raw;    
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(context, context.webAPI, peopleCache)             
+                cellRendererOverrides: generateCellRendererOverrides(context, context.webAPI, this.peopleCache)             
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }  
