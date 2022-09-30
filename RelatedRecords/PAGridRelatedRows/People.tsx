@@ -6,8 +6,17 @@ interface IPeopleProps {
    peopleCache: any;
 }
 export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCache}: IPeopleProps){
-    const [people, setPeople] = React.useState<Array<any>>(peopleCache[parentId ?? ""] || []);
-    const [loading, setLoading] = React.useState<boolean>(true);
+    const [people, setPeople] = React.useState<Array<any> | null>(peopleCache[parentId ?? ""] ?? null); 
+    const mounted = React.useRef(false);
+
+    React.useEffect(() => {
+        mounted.current = true;
+        return () => {
+            mounted.current = false;
+            console.log(`People component unmounted for ${parentId}`);
+        };
+    }, []);
+
     React.useEffect(() => {          
         if(parentId && peopleCache[parentId ?? ""]==null){          
             webAPI.retrieveMultipleRecords("systemuser", ["?fetchXml=", 
@@ -23,15 +32,23 @@ export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCac
                     `</link-entity>`,
                 `</entity>`,
             `</fetch>`].join('')).then((result)=>{
-                setPeople(result.entities);
-                peopleCache[parentId] = result.entities;
-                setLoading(false)
+                peopleCache[parentId ?? ""] = result.entities;
+                if(mounted.current){
+                    setPeople(result.entities);                    
+                }
+                else {
+                    console.log(`People component unmounted before data returned for ${parentId}`);
+                }
             }); 
         }       
-        else{
-            setLoading(false);
-        }
         }, [parentId]);
 
-    return <div>{loading === true ? "..." : people.map((person)=> person.entityimage_url ? <img src={person.entityimage_url} style={{height: "32px", width:"32px", backgroundColor: "gray", borderRadius: "15px", margin: "1px"}}/>: null) }</div>
+    return <div>
+        {people == null 
+            ? "..." 
+            : people.map((person)=> person.entityimage_url 
+                ? <img src={person.entityimage_url} style={{height: "32px", width:"32px", backgroundColor: "gray", borderRadius: "15px", margin: "1px"}}/>
+                : null
+                ) 
+        }</div>
 });
