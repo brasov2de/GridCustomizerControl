@@ -13,12 +13,13 @@ export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCac
         mounted.current = true;
         return () => {
             mounted.current = false;
-            console.log(`People component unmounted for ${parentId}`);
+          //  console.log(`People component unmounted for ${parentId}`);
         };
     }, []);
 
     React.useEffect(() => {          
-        if(parentId && peopleCache[parentId ?? ""]==null){          
+        if(parentId && peopleCache[parentId ?? ""]==null){      
+            console.log(`%cStarting fetch for ${parentId}`, "color:yellow");    
             webAPI.retrieveMultipleRecords("systemuser", ["?fetchXml=", 
                 `<fetch distinct="false" mapping="logical" returntotalrecordcount="true" page="1" count="5" no-lock="true">`,
                 `<entity name="systemuser">`, 
@@ -36,19 +37,22 @@ export const People = React.memo(function PeopleRaw({parentId, webAPI, peopleCac
                 if(mounted.current){
                     setPeople(result.entities);                    
                 }
-                else {
-                    console.log(`People component unmounted before data returned for ${parentId}`);
-                }
+              /*  else {
+                    console.log(`%cPeople component unmounted before data returned for ${parentId}`, "color:red");
+                }*/
             }); 
-        }       
+        }
+      /*  else {
+            console.log(`%cUsing cache data for ${parentId}`, "color:green");
+        }  */     
         }, [parentId]);
 
-    return <div>
+    return (<div>
         {people == null 
             ? "..." 
             : people.map((person)=> person.entityimage_url 
                 ? <img src={person.entityimage_url} style={{height: "32px", width:"32px", backgroundColor: "gray", borderRadius: "15px", margin: "1px"}}/>
                 : null
                 ) 
-        }</div>
+        }</div>);
 });

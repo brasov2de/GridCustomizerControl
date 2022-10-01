@@ -27,10 +27,11 @@ export class PAGridRelatedRows implements ComponentFramework.ReactControl<IInput
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
     ): void {
+        console.log(`init called and the cache is`, this.peopleCache);
         const eventName = context.parameters.EventName.raw;    
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(context, context.webAPI, this.peopleCache)             
+                cellRendererOverrides: generateCellRendererOverrides(context.webAPI, this.peopleCache)             
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }  

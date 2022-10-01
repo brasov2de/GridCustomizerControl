@@ -7,7 +7,7 @@ import { People } from './People';
 
 
 
-export const generateCellRendererOverrides = (context: ComponentFramework.Context<IInputs>, webAPI: ComponentFramework.WebApi, peopleCache = {}) => {  
+export const generateCellRendererOverrides = (webAPI: ComponentFramework.WebApi, peopleCache = {}) => {  
  
     return  {       
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {             
