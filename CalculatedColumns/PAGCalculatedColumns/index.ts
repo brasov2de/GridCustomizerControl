@@ -23,7 +23,7 @@ export class PAGCalculatedColumns implements ComponentFramework.ReactControl<IIn
         context: ComponentFramework.Context<IInputs>,
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
-    ): void {
+    ): void {       
         const eventName = context.parameters.EventName.raw;
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
