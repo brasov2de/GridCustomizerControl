@@ -20,13 +20,13 @@ export class RequestManager{
 
     private debouncedAccumulatedFetch = debounce(async (ids)=>{
       console.log("fetching for ids", ids);      
-      const response = await this.webAPI.retrieveMultipleRecords(this.baseEntity, "?fetchXml=" + [
+      const response = await this.webAPI.retrieveMultipleRecords("activitypointer", "?fetchXml=" + [
       `<fetch no-lock="true" aggregate="true" >`,
-        `<entity name="diana_pcftester_systemuser">`,
-          `<attribute name="diana_pcftester_systemuserid" alias="count" aggregate="count"/>`,
-          `<attribute name="diana_pcftesterid" alias="parentid" groupby="true"/>`,
+        `<entity name="activitypointer">`,
+          `<attribute name="activityid" alias="count" aggregate="count"/>`,
+          `<attribute name="regardingobjectid" alias="parentid" groupby="true"/>`,
           `<filter>`,
-            `<condition attribute="diana_pcftesterid" operator="in">`,
+            `<condition attribute="regardingobjectid" operator="in">`,
               ids.map((id : string)=>`<value>${id}</value>`).join(""),
             `</condition>`,
           `</filter>`,

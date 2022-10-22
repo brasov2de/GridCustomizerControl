@@ -30,7 +30,7 @@ export class PAGridRelatedRowsBatched implements ComponentFramework.ReactControl
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        this.requestManager = new RequestManager(context.webAPI, "diana_pcftester_systemuser", "");
+        this.requestManager = new RequestManager(context.webAPI, "", "");
         const eventName = context.parameters.EventName.raw;    
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
