@@ -22,7 +22,7 @@ export class RequestManager{
       console.log("fetching for ids", ids);      
       const response = await this.webAPI.retrieveMultipleRecords("activitypointer", "?fetchXml=" + [
       `<fetch no-lock="true" aggregate="true" >`,
-        `<entity name="activitypointer">`,
+        `<entity name="task">`,
           `<attribute name="activityid" alias="count" aggregate="count"/>`,
           `<attribute name="regardingobjectid" alias="parentid" groupby="true"/>`,
           `<filter>`,
