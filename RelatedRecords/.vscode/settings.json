@@ -1,0 +1,5 @@
+{
+    "powerPlatform.experimental.browserFlavor": "Stable",
+    "powerPlatform.experimental.enablePcfDebuggingFeatures": true,
+    "powerPlatform.experimental.defaultUrl": "https://dianamics.crm4.dynamics.com/"
+}

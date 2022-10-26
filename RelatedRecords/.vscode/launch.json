@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "powerplatform-vscode.debug",
+            "request": "launch",
+            "name": "Launch a PCF control in Microsoft Edge and attach debugger.",
+            "url": "https://dianamics.crm4.dynamics.com/main.aspx?appid=6212d800-a3d3-ec11-a7b5-000d3abb98ab",
+            "webRoot": "${workspaceFolder}",
+            "renderFullScreen": false,
+            "controlName": "diana_ORBIS.PAGridRelatedRows",
+            "file": "out/controls/PAGridRelatedRows/bundle.js",
+            "useDefaultUserDataProfile": false, 
+            "tabName": "MyControl Tab"            
+        }
+
+    ]
+}
