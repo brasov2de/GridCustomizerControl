@@ -1,14 +1,11 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import { HelloWorld, IHelloWorldProps } from "./HelloWorld";
 import * as React from "react";
 import { generateCellRendererOverrides } from "./customizers/CellRendererOverrides";
-import { RequestManager } from "./customizers/requestManager";
 import { PAOneGridCustomizer } from "./PAGridTypes";
 
 export class PAGridRelatedRowsBatched implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
-    private notifyOutputChanged: () => void;
-    private requestManager;
+    private notifyOutputChanged: () => void;   
 
     /**
      * Empty constructor.
@@ -29,12 +26,11 @@ export class PAGridRelatedRowsBatched implements ComponentFramework.ReactControl
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
     ): void {
-        this.notifyOutputChanged = notifyOutputChanged;
-        this.requestManager = new RequestManager(context.webAPI, "", "");
+        this.notifyOutputChanged = notifyOutputChanged;      
         const eventName = context.parameters.EventName.raw;    
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(context.webAPI, this.requestManager)             
+                cellRendererOverrides: generateCellRendererOverrides(context.webAPI)             
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }  
