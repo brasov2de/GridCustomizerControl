@@ -27,7 +27,7 @@ export const generateCellRendererOverrides = (webAPI: ComponentFramework.WebApi)
                 return null;
             }            
             const parentId = rowData?.[RECID];                      
-            return <ActivityCounter parentId={parentId} requestManager={requestManagerActivities}/>
+            return <ActivityCounter parentId={parentId} requestManager={requestManagerActivities} cellRenderProps={props}/>
          }        
     }  
 }

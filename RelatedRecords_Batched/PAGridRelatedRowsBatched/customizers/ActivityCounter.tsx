@@ -1,11 +1,13 @@
 import { Icon } from '@fluentui/react/lib/components/Icon';
 import * as React from 'react';
+import { CellRendererProps } from '../PAGridTypes';
 import { RequestManager } from './requestManager';
 
 interface IActivityCounterProps {
    parentId ?: string;  
-   requestManager : RequestManager;
-}
+   requestManager : RequestManager;   
+    cellRenderProps : CellRendererProps;
+   }
 
 const openSidePane = async (parentId: string) => {
     const paneConfig = {
@@ -34,7 +36,7 @@ const openSidePane = async (parentId: string) => {
         }); 
 }
 
-export const ActivityCounter = React.memo(function ActivityCounterRaw({parentId, requestManager}: IActivityCounterProps){    
+export const ActivityCounter = React.memo(function ActivityCounterRaw({parentId, requestManager, cellRenderProps}: IActivityCounterProps){    
     const [count, setCount] = React.useState<number>();
     const [isDirty, setIsDirty] = React.useState<boolean>(false);
     const mounted = React.useRef(false);
@@ -44,7 +46,7 @@ export const ActivityCounter = React.memo(function ActivityCounterRaw({parentId,
             console.log("clicked on parentId", parentId);
             openSidePane(parentId);  
             requestManager.addToRefreshList(parentId);   
-            setIsDirty(true);                     
+            setIsDirty(true);            
         }
     }, [parentId, isDirty]);
 
@@ -80,12 +82,14 @@ export const ActivityCounter = React.memo(function ActivityCounterRaw({parentId,
         });
     },[parentId]);   
    
-    return <div><div 
-        onClick={onClick}
-        style={{height: "28px", width:"28px", display: "inline-block", backgroundColor: (count===0 || count ==null) ? "transparent" : "#5B2C6F", border: count===0 ? "1px solid white" : "1px solid #5B2C6F", color:"white", textAlign: "center", borderRadius: "15px", margin: "1px", lineHeight: "25px", cursor: 'pointer'}} 
-        >{count==null ? "..." : count}
-        </div>
-        <Icon onClick={refresh} iconName='Refresh' hidden={isDirty===false} ></Icon>
-        
+    const refreshIcon = isDirty ? <Icon iconName="Refresh" onClick={refresh} /> : null;
+
+    return <div>
+        <div 
+            onClick={onClick}
+            style={{height: "28px", width:"28px", display: "inline-block", backgroundColor: (count===0 || count ==null) ? "transparent" : "#5B2C6F", border: count===0 ? "1px solid white" : "1px solid #5B2C6F", color:"white", textAlign: "center", borderRadius: "15px", margin: "1px", lineHeight: "25px", cursor: 'pointer'}} 
+            >{count==null ? "..." : count}
+            </div>
+        {refreshIcon}
         </div>
 });

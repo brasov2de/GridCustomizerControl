@@ -1,6 +1,7 @@
 
 
 import * as debounce from "debounce-promise"
+import { resolve } from "path";
 
 //https://www.npmjs.com/package/debounce-promise
 
@@ -11,6 +12,7 @@ export class RequestManager{
   baseFetchXml: string;
   aliasParentId: string = "parentid";
   refreshList : Set<string>;
+  toRefresh = Array<Promise>;
 
 
     constructor(webAPI: ComponentFramework.WebApi, baseEntity: string, baseFetchXml: string, aliasParentId: string = "parentid"){
@@ -57,7 +59,7 @@ export class RequestManager{
       this.refreshList.add(id);
    }
 
-   public async refresh(parentId: string){     
+   public async refresh(parentId: string){           
       if(this.refreshList.size>0){ 
           const records = Array.from(this.refreshList);      
           await this.retrieveRecords(records);
@@ -65,4 +67,5 @@ export class RequestManager{
       }
       return this.cache[parentId];
    }
+  
 }
