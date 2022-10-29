@@ -26,7 +26,7 @@ This example of Power Apps Grid control shows the users associated to a record (
 The users are shown async, executing a request for each row. They are cached inside the PCF, but reloaded each time the PCF "init" method is called.
 ![image](https://user-images.githubusercontent.com/29977935/189729052-d8ac4da2-41ab-4176-967a-eb7126845850.png)
 
-##Related records _ batched
+## Related records : batched with debouncing
 An exmaple similar to "related records" example. This time the requests are debounced, and collected in only one fetch. After that all the promises are resolved.
 The RequestsManager is taking care or debouncing and caching the data,
 ![2022-10-29 11_56_03-Clipboard](https://user-images.githubusercontent.com/29977935/198836832-38e256b2-42e7-4da7-8cce-070c66ad20b6.png)
