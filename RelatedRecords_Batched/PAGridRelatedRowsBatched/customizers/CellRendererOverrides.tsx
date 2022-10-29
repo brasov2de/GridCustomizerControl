@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IInputs } from '../generated/ManifestTypes';
 import { CellRendererProps, GetRendererParams, RECID } from '../PAGridTypes';
 import { ActivityCounter } from './ActivityCounter';
 import { RequestManager } from './requestManager';
@@ -17,8 +18,8 @@ const FETCH_TASKS = [`<fetch no-lock="true" aggregate="true" >`,
 `</entity>`,
 `</fetch>`].join("");
 
-export const generateCellRendererOverrides = (webAPI: ComponentFramework.WebApi) => {  
-    const requestManagerActivities = new RequestManager(webAPI, "task", FETCH_TASKS, "parentid");
+export const generateCellRendererOverrides = (context: ComponentFramework.Context<IInputs>) => {  
+    const requestManagerActivities = new RequestManager(context.webAPI, "task", FETCH_TASKS, "parentid");
     return  {       
         ["Text"] : (props: CellRendererProps, rendererParams: GetRendererParams) => {                    
             const {columnIndex, colDefs, rowData } = rendererParams;         
@@ -27,7 +28,7 @@ export const generateCellRendererOverrides = (webAPI: ComponentFramework.WebApi)
                 return null;
             }            
             const parentId = rowData?.[RECID];                      
-            return <ActivityCounter parentId={parentId} requestManager={requestManagerActivities} cellRenderProps={props}/>
+            return <ActivityCounter parentId={parentId} requestManager={requestManagerActivities} context={context}/>
          }        
     }  
 }

@@ -25,7 +25,7 @@ export class RequestManager{
 
     private retrieveRecords = async (ids: string[]) => {
       const condition = ids.map((id : string)=>`<value>${id}</value>`).join("");  
-      console.log(`%cFetching ${condition}`, "color:orange");
+      console.log(`%cFetching ${condition}`, "color:#EC407A");
       const response = await this.webAPI.retrieveMultipleRecords(this.baseEntity, "?fetchXml=" + this.baseFetchXml.replace("${IDS}", condition)); 
 
       response.entities.forEach((entity)=>{
@@ -40,11 +40,9 @@ export class RequestManager{
       });
     }
 
-    private debouncedAccumulatedFetch = debounce(async (ids)=>{      
-     
+    private debouncedAccumulatedFetch = debounce(async (ids)=>{           
       return this.retrieveRecords(ids);
-
-    }, 500, {accumulate:true});
+    }, 200, {accumulate:true});
    
    
     public async getRecords(id: string){          
@@ -55,6 +53,14 @@ export class RequestManager{
       return results;
     }    
 
+    public async refresh(parentId: string){  
+      this.cache[parentId] = null;               
+      const records = [parentId];
+      await this.retrieveRecords(records);            
+      return this.cache[parentId];
+   }
+
+    /*
    public addToRefreshList(id: string){
       this.refreshList.add(id);
    }
@@ -67,5 +73,6 @@ export class RequestManager{
       }
       return this.cache[parentId];
    }
+   */
   
 }

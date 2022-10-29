@@ -30,7 +30,7 @@ export class PAGridRelatedRowsBatched implements ComponentFramework.ReactControl
         const eventName = context.parameters.EventName.raw;    
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(context.webAPI)             
+                cellRendererOverrides: generateCellRendererOverrides(context)             
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }  
