@@ -29,7 +29,7 @@ export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutpu
         this.notifyOutputChanged = notifyOutputChanged;
         const eventName = context.parameters.EventName.raw;
         if (eventName) {
-            const draggableGrid = new DraggableRowsGridRenderer();
+            const draggableGrid = DraggableRowsGridRenderer;
             const paOneGridCustomizer: PAOneGridCustomizer = { 
                 cellCustomization : draggableGrid,
                 gridCustomizer : draggableGrid, 

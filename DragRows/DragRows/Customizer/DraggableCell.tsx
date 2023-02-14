@@ -4,13 +4,14 @@ import { Icon} from "@fluentui/react/lib/Icon";
 export interface IDraggableCell {
     rowId ?: string;
     rowIndex ?: any;
+    text ?: string;
 }
 
 function allowDrop(event:any) {
     event.preventDefault();
   }
 
-export function DraggableCell({rowId, rowIndex}:IDraggableCell): any{
+export function DraggableCell({rowId, rowIndex, text}:IDraggableCell): any{
     const dragStart = (event: any) => {
         event.dataTransfer.setData("DianamicsDraggedRow", JSON.stringify({rowId, rowIndex}));
         console.log("Started to drag the text", rowId);              
@@ -26,7 +27,8 @@ export function DraggableCell({rowId, rowIndex}:IDraggableCell): any{
     return (       
          <div onDrop={drop} onDragOver={allowDrop} style={{width: "100%", height: "100%"}}>
             <div draggable={true} onDragStart={dragStart}>
-            <Icon iconName="DragObject" aria-hidden="true" id={rowId} style={{fontSize: "xx-large"}}  />        
+            <Icon iconName="DragObject" aria-hidden="true" id={rowId} style={{fontSize: "xx-large"}}  />
+            {text}        
             </div>
         </div>       
     )        

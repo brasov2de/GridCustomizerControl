@@ -11,25 +11,26 @@ export const cellEditorOverrides: CellEditorOverrides = {
 }*/
 
 
-export class DraggableRowsGridRenderer implements GridCustomizer {
-    GetLoadingRowRenderer(): React.ReactElement{
+export const DraggableRowsGridRenderer : GridCustomizer  ={
+    GetLoadingRowRenderer: (): React.ReactElement => {
         return <div>Loading...</div>;
-    }  
-    GetCellRenderer(params: GetRendererParams): React.ReactElement{
+    } , 
+    GetCellRenderer : (params: GetRendererParams): React.ReactElement => {
         const cellName = params.colDefs[params.columnIndex].name;
+        const formattedValue = params.colDefs[params.columnIndex].getFormattedValue(params.rowData?.[RECID]) ?? (params.rowData as any)[cellName];
         if(cellName==="diana_sortorder"){
             const index = (params.rowData as any)?.diana_sortorder ?? (params as any).rowIndex;
             return (<div>
-                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} />         
+                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} text={formattedValue}/>                         
             </div>)
         }
         else{
             return (<div>                
-                {(params.rowData as any)[cellName]}
+                {formattedValue}
             </div>)
         }                
     }
-   /* GetHeaderRenderer(params: GetHeaderParams): React.ReactElement{
+   /* GetHeaderRenderer : (params: GetHeaderParams): React.ReactElement => {
         const colDisplayName = params.colDefs[params.columnIndex].displayName;
         return <div>{colDisplayName}</div>;
     }*/

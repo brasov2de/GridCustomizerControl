@@ -175,6 +175,7 @@ export interface ColumnDefinition {
   hide?: boolean;
   /** Column is primary field */
   isPrimary: boolean;
+  getFormattedValue : (id ?: string) => string; //UNSUPPORTED
 }
 
 export type ColumnDataType =
