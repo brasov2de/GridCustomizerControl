@@ -1,8 +1,6 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import { PAOneGridCustomizer } from "./Customizer/types";
-import { MyCellRenderer } from "./Customizer/CellRendererOverrides";
-import { DraggableCell } from "./Customizer/DraggableCell";
 import { DraggableRowsGridRenderer } from "./Customizer/GridRenderer";
 
 export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutputs> {
@@ -29,11 +27,11 @@ export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutpu
         this.notifyOutputChanged = notifyOutputChanged;
         const eventName = context.parameters.EventName.raw;
         if (eventName) {
-            const draggableGrid = DraggableRowsGridRenderer;
+            const draggableGrid = DraggableRowsGridRenderer(context);
             const paOneGridCustomizer: PAOneGridCustomizer = { 
                 cellCustomization : draggableGrid,
-                gridCustomizer : draggableGrid, 
-                cellRendererOverrides : MyCellRenderer        
+                gridCustomizer : draggableGrid 
+             //   cellRendererOverrides : MyCellRenderer        
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }                

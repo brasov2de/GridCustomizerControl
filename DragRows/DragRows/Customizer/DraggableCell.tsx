@@ -1,17 +1,19 @@
 import * as React from 'react'
 import { Icon} from "@fluentui/react/lib/Icon";
+import { IInputs } from '../generated/ManifestTypes';
 
 export interface IDraggableCell {
     rowId ?: string;
     rowIndex ?: any;
     text ?: string;
+    context: ComponentFramework.Context<IInputs>
 }
 
 function allowDrop(event:any) {
     event.preventDefault();
   }
 
-export function DraggableCell({rowId, rowIndex, text}:IDraggableCell): any{
+export function DraggableCell({rowId, rowIndex, text, context}:IDraggableCell): any{
     const dragStart = (event: any) => {
         event.dataTransfer.setData("DianamicsDraggedRow", JSON.stringify({rowId, rowIndex}));
         console.log("Started to drag the text", rowId);              
@@ -23,6 +25,7 @@ export function DraggableCell({rowId, rowIndex, text}:IDraggableCell): any{
         const sourceId = source?.rowId;
         const sourceIndex = source?.rowIndex;
         console.log("The text was dropped", sourceId, sourceIndex, targetId);
+        context.factory.requestRender();
       }
     return (       
          <div onDrop={drop} onDragOver={allowDrop} style={{width: "100%", height: "100%"}}>

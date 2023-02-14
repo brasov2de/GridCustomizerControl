@@ -5,13 +5,14 @@ import { CellRendererOverrides, CellRendererProps, GetRendererParams, RECID } fr
 
 
 export const MyCellRenderer = {
-        ["Integer"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
+/*        ["Integer"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
             const column = rendererParams.colDefs[rendererParams.columnIndex];
             if(column.name==="diana_sortorder"){
                return <DraggableCell rowId={rendererParams.rowData?.[RECID]} rowIndex={props.value} text={props.formattedValue}/>                                
             }
             return null;
         }
+        */
     };
 
         /*,

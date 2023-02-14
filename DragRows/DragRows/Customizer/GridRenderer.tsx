@@ -1,6 +1,7 @@
 import { GetHeaderParams, GetRendererParams, GridCustomizer, NoRowsOverlayConfig, RECID } from "./types";
 import * as React from 'react';
 import { DraggableCell } from "./DraggableCell";
+import { IInputs } from "../generated/ManifestTypes";
 
 /*
 export const cellEditorOverrides: CellEditorOverrides = {
@@ -11,7 +12,8 @@ export const cellEditorOverrides: CellEditorOverrides = {
 }*/
 
 
-export const DraggableRowsGridRenderer : GridCustomizer  ={
+export const DraggableRowsGridRenderer = (context: ComponentFramework.Context<IInputs>) : GridCustomizer  => {
+    return {
     GetLoadingRowRenderer: (): React.ReactElement => {
         return <div>Loading...</div>;
     } , 
@@ -21,7 +23,7 @@ export const DraggableRowsGridRenderer : GridCustomizer  ={
         if(cellName==="diana_sortorder"){
             const index = (params.rowData as any)?.diana_sortorder ?? (params as any).rowIndex;
             return (<div>
-                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} text={formattedValue}/>                         
+                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} text={formattedValue} context={context}/>                         
             </div>)
         }
         else{
@@ -34,4 +36,4 @@ export const DraggableRowsGridRenderer : GridCustomizer  ={
         const colDisplayName = params.colDefs[params.columnIndex].displayName;
         return <div>{colDisplayName}</div>;
     }*/
-}
+}}
