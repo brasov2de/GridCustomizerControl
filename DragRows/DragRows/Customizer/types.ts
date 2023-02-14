@@ -8,8 +8,8 @@ export interface PAOneGridCustomizer {
   * @notice If you just need to override few cell renderers or editors,
   * its better to use cellRendererOverrides, cellEditorOverrides props
   */
- // gridCustomizer?: GridCustomizer; 
- cellCustomization?: GridCustomizer;
+  gridCustomizer?: GridCustomizer;
+  cellCustomization?: GridCustomizer;
   /** Provides overrides for built -in cell renderers */
   cellRendererOverrides?: CellRendererOverrides;
   /** Provides overrides for built -in cell editors */
@@ -83,8 +83,6 @@ export interface GetRendererParams {
   rowData?: RowData;
   /** True when tab navigation is allowed in the grid */
   allowTabKeyNavigation?: boolean;
-  //cellElement
-  //rowIndex
 }
 
 export interface CellEditorProps {

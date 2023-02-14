@@ -1,13 +1,14 @@
-import { CellEditorOverrides, CellEditorProps, GetEditorParams, GetHeaderParams, GetRendererParams, GridCustomizer, NoRowsOverlayConfig } from "./types";
+import { CellEditorOverrides, CellEditorProps, GetEditorParams, GetHeaderParams, GetRendererParams, GridCustomizer, NoRowsOverlayConfig, RECID } from "./types";
 import * as React from 'react';
+import { DraggableCell } from "./DraggableCell";
 
-
+/*
 export const cellEditorOverrides: CellEditorOverrides = {
     ["Text"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {
       // TODO: Add your custom cell editor overrides here
       return null
     }
-}
+}*/
 
 
 export class DianaGridRenderer implements GridCustomizer {
@@ -15,7 +16,7 @@ export class DianaGridRenderer implements GridCustomizer {
         return <div>Loading...</div>;
     }  
     GetCellRenderer(params: GetRendererParams): React.ReactElement{
-        return <div>TEST</div>
+        return <div>Test1</div>
     }
     GetHeaderRenderer(params: GetHeaderParams): React.ReactElement{
         return <div>HEADER</div>;

@@ -1,9 +1,11 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
-import { PAOneGridCustomizer } from "./GridCustomizerResources/types";
-import { DianaGridRenderer } from "./GridCustomizerResources/GridRenderer";
+import { PAOneGridCustomizer } from "./Customizer/types";
+import { MyCellRenderer } from "./Customizer/CellRendererOverrides";
+import { DraggableCell } from "./Customizer/DraggableCell";
+import { DraggableRowsGridRenderer } from "./Customizer/GridRenderer";
 
-export class DianaGridCustomizer implements ComponentFramework.ReactControl<IInputs, IOutputs> {
+export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
 
@@ -24,14 +26,17 @@ export class DianaGridCustomizer implements ComponentFramework.ReactControl<IInp
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
     ): void {
-        const eventName = context.parameters.EventName.raw;      
+        this.notifyOutputChanged = notifyOutputChanged;
+        const eventName = context.parameters.EventName.raw;
         if (eventName) {
+            const draggableGrid = new DraggableRowsGridRenderer();
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellCustomization : new DianaGridRenderer()
-                //cellEditorOverrides : cellEditorOverrides
-                };
+                cellCustomization : draggableGrid,
+                gridCustomizer : draggableGrid, 
+                cellRendererOverrides : MyCellRenderer        
+            };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
-        }                        
+        }                
     }
 
     /**
@@ -39,8 +44,9 @@ export class DianaGridCustomizer implements ComponentFramework.ReactControl<IInp
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      * @returns ReactElement root react element for the control
      */
-    public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {     
+    public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
         return React.createElement(React.Fragment);
+        //return React.createElement(DraggableCell, {rowId: "id111", rowIndex: 1});
     }
 
     /**

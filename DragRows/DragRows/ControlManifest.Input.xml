@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="Dianamics" constructor="DianaGridCustomizer" version="0.0.3" display-name-key="DianaGridCustomizer" description-key="DianaGridCustomizer description" control-type="virtual" >
+  <control namespace="Dianamics" constructor="DragRows" version="0.0.14" display-name-key="DragRows" description-key="DragRows description" control-type="virtual" >
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -35,8 +35,8 @@
       <platform-library name="React" version="16.8.6" />
       <platform-library name="Fluent" version="8.29.0" />
       <!-- UNCOMMENT TO ADD MORE RESOURCES
-      <css path="css/DianaGridCustomizer.css" order="1" />
-      <resx path="strings/DianaGridCustomizer.1033.resx" version="1.0.0" />
+      <css path="css/DragRows.css" order="1" />
+      <resx path="strings/DragRows.1033.resx" version="1.0.0" />
       -->
     </resources>
     <!-- UNCOMMENT TO ENABLE THE SPECIFIED API
