@@ -23,7 +23,7 @@ export const DraggableRowsGridRenderer = (context: ComponentFramework.Context<II
         if(cellName==="diana_sortorder"){
             const index = (params.rowData as any)?.diana_sortorder ?? (params as any).rowIndex;
             return (<div>
-                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} text={formattedValue} context={context}/>                         
+                <DraggableCell rowId={params.rowData?.[RECID]} rowIndex={index} text={formattedValue}/>                         
             </div>)
         }
         else{
