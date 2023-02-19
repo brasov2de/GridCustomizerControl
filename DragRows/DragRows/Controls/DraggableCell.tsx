@@ -6,7 +6,7 @@ export interface IDraggableCell {
     rowId ?: string;
     rowIndex ?: any;
     text ?: string;   
-    onDropped ?: (sourceId: string, targetId: string) => void;   
+    onDropped ?: (sourceId: string, sourceValue: number, targetId: string, targetValue: number) => void;   
 }
 
 function allowDrop(event:any) {
@@ -25,7 +25,7 @@ export function DraggableCell({rowId, rowIndex, text, onDropped}:IDraggableCell)
         const sourceId = source?.rowId;
         const sourceIndex = source?.rowIndex;
         console.log("The text was dropped", sourceId, sourceIndex, targetId, rowIndex);
-        if(onDropped) onDropped(sourceId, targetId);
+        if(onDropped) onDropped(sourceId, sourceIndex, targetId, rowIndex );
       }
 
     return (       
