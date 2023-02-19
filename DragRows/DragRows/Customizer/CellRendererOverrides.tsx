@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { DraggableCell } from './DraggableCell';
+import { DraggableCell } from '../Controls/DraggableCell';
 import { CellRendererOverrides, CellRendererProps, GetRendererParams, RECID } from './types';
 
 

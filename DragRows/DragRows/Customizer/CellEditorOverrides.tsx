@@ -1,6 +1,6 @@
 import { Icon } from '@fluentui/react/lib/components/Icon';
 import * as React from 'react';
-import { DraggableCell } from './DraggableCell';
+import { DraggableCell } from '../Controls/DraggableCell';
 
 import { CellEditorOverrides, CellEditorProps, GetEditorParams, RECID } from './types';
 

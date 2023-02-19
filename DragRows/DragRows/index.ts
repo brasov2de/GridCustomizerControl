@@ -2,10 +2,12 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import { PAOneGridCustomizer } from "./Customizer/types";
 import { DraggableRowsGridRenderer } from "./Customizer/GridRenderer";
+import { SortableIndex } from "./Requests/Sortables";
 
 export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
+    private sortables : SortableIndex;
 
     /**
      * Empty constructor.
@@ -23,11 +25,12 @@ export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutpu
         context: ComponentFramework.Context<IInputs>,
         notifyOutputChanged: () => void,
         state: ComponentFramework.Dictionary
-    ): void {
+    ): void {       
         this.notifyOutputChanged = notifyOutputChanged;
         const eventName = context.parameters.EventName.raw;
+        this.sortables = new SortableIndex(context.webAPI, "diana_sortable", "diana_sortorder");
         if (eventName) {
-            const draggableGrid = DraggableRowsGridRenderer(context);
+            const draggableGrid = DraggableRowsGridRenderer(this.sortables, context);
             const paOneGridCustomizer: PAOneGridCustomizer = { 
                 cellCustomization : draggableGrid,
                 gridCustomizer : draggableGrid 
