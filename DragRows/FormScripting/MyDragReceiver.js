@@ -3,7 +3,7 @@ function SortOrderChanged(executionContext){
    const retrieveRecords = (sourceIndex, targetIndex) => {
       const parentId = executionContext.getFormContext().data.entity.getId();
       return Xrm.WebApi.retrieveMultipleRecords("diana_sortable", 
-         `?$select=diana_sortableid,diana_sortorder&$filter=(_diana_pcftesterid_value eq '${parentId}'` +
+         `?$select=diana_sortableid,diana_sortorder&$filter=(_diana_accountid_value eq '${parentId}'` +
          `and Microsoft.Dynamics.CRM.Between(PropertyName='diana_sortorder',PropertyValues=['${sourceIndex}','${targetIndex}']))&$orderby=diana_sortorder asc`)
    }
 

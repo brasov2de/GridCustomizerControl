@@ -5,14 +5,28 @@ import { CellRendererOverrides, CellRendererProps, GetRendererParams, RECID } fr
 
 
 export const MyCellRenderer = {
-/*        ["Integer"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
+        ["Integer"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
             const column = rendererParams.colDefs[rendererParams.columnIndex];
             if(column.name==="diana_sortorder"){
-               return <DraggableCell rowId={rendererParams.rowData?.[RECID]} rowIndex={props.value} text={props.formattedValue}/>                                
+                const onDropped = (sourceId: string, sourceValue:number, targetId : string, targetValue:number) => {                              
+                    Array.from(parent.frames).forEach((frame) => {
+                        frame.postMessage({
+                            messageName: "Dianamics.DragRows", 
+                            data: {
+                                sourceId, 
+                                sourceValue,
+                                targetId, 
+                                targetValue
+                            }
+                        }, "*");
+                    });    
+                                        
+                }
+               return <DraggableCell rowId={rendererParams.rowData?.[RECID]} rowIndex={props.value} text={props.formattedValue} onDropped={onDropped}/>                                
             }
             return null;
         }
-        */
+        
     };
 
         /*,
