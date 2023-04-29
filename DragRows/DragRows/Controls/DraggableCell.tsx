@@ -16,7 +16,11 @@ function allowDrop(event:any) {
 export function DraggableCell({rowId, rowIndex, text, onDropped}:IDraggableCell): any{
     const dragStart = (event: any) => {
         event.dataTransfer.setData("DianamicsDraggedRow", JSON.stringify({rowId, rowIndex}));
-        console.log("Started to drag the text", rowId);              
+        //console.log("Started to drag the text", rowId);              
+     /*   var crt = event.currentTarget.parentElement?.parentElement?.parentElement?.parentElement;//?.parentElement;     
+        if(crt){     
+          event.dataTransfer.setDragImage(crt, 0, 0); 
+        }*/
     }
     function drop(event:any) {
         event.preventDefault();

@@ -2,6 +2,7 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import { PAOneGridCustomizer } from "./Customizer/types";
 import { DraggableRowsGridRenderer } from "./Customizer/GridRenderer";
+import { MyCellRenderer } from "./Customizer/CellRendererOverrides";
 
 
 export class DragRows implements ComponentFramework.ReactControl<IInputs, IOutputs> {
