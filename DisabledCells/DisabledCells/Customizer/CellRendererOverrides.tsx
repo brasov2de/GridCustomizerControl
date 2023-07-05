@@ -8,11 +8,16 @@ export const generateCellRendererOverrides = () => {
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
             // TODO: Add your custom cell editor overrides here
             const column = rendererParams.colDefs[rendererParams.columnIndex];  
-            console.log(`${column.name}  - ${props.columnEditable}`);
-            (props.onCellClicked as any) = (event?: React.MouseEvent<HTMLElement, MouseEvent> | MouseEvent) => {
-                console.log("onCellClicked");
-                event?.preventDefault();
-            }        
+            if(props.columnEditable===false){
+                return null;
+            }
+            if(column.name=="diana_relatedusers" && props.value=="PCF"){               
+                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
+              }
+              if(column.name=="crec8_city" || column.name=="diana_technologycode"){         
+                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
+              }
+            console.log(`${column.name}  - ${props.columnEditable}`);                 
             return null;
         },
         ["TextArea"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
@@ -29,7 +34,16 @@ export const generateCellRendererOverrides = () => {
         }, 
         ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {            
           const f = props.formattedValue;
-          return null;        
+          const column = rendererParams.colDefs[rendererParams.columnIndex];  
+          if(props.columnEditable===false){
+              return null;
+          }
+         
+            if(column.name=="diana_technologycode"){         
+                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
+            }
+        
+          return null;    
         }, 
         ["TwoOptions"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {     
             const p = props.formattedValue

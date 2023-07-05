@@ -11,6 +11,8 @@ EditOff16Filler - data:image/svg+xml;%20charset=utf8,%20%3Csvg%20fill%3D%22gray%
 EditProhibited16Regular 
 */
 
+/*works
+
 div [role="gridcell"][col-id="diana_relatedusers"]:hover::after{
     color: gray;
     content: url('data:image/svg+xml;%20charset=utf8,%20%3Csvg%20fill%3D%22gray%22%20aria-hidden%3D%22true%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12.44%201.56a1.91%201.91%200%200%200-2.7%200l-7.4%207.4c-.18.18-.32.4-.4.64l-.91%202.74a.5.5%200%200%200%20.63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53%205.53%200%200%201-.1-1.31l-.67.66a.65.65%200%200%201-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L9%203.71%2010.3%205h-.01a5.58%205.58%200%200%201%201.3.11l.85-.84c.75-.75.75-1.96%200-2.7Zm-2%20.7a.91.91%200%201%201%201.3%201.3L11%204.3%209.7%203l.74-.73ZM6%2010.5a4.5%204.5%200%201%200%209%200%204.5%204.5%200%200%200-9%200Zm1%200a3.5%203.5%200%200%201%205.6-2.8l-4.9%204.9a3.48%203.48%200%200%201-.7-2.1Zm3.5%203.5c-.79%200-1.51-.26-2.1-.7l4.9-4.9a3.5%203.5%200%200%201-2.8%205.6Z%22%20fill%3D%22gray%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
@@ -24,8 +26,48 @@ div [role="gridcell"][col-id="diana_relatedusers"]:focus-within::after {
     margin-right: 6px;
     width: 22px;
 }
+*/
+div[dianamics_uneditable]{
+    background-color: #f3f2f1;
+}
+div[dianamics_uneditable] div:not([role]){
+    background-color: #f3f2f1;
+}
+
+div[dianamics_uneditable="true"]:hover::after{
+    color: gray;
+    content: url('data:image/svg+xml;%20charset=utf8,%20%3Csvg%20aria-hidden%3D%22true%22%20width%3D%2214%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12.44%201.56a1.91%201.91%200%200%200-2.7%200l-7.4%207.4c-.18.18-.32.4-.4.64l-.91%202.74a.5.5%200%200%200%20.63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53%205.53%200%200%201-.1-1.31l-.67.66a.65.65%200%200%201-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L9%203.71%2010.3%205h-.01a5.58%205.58%200%200%201%201.3.11l.85-.84c.75-.75.75-1.96%200-2.7Zm-2%20.7a.91.91%200%201%201%201.3%201.3L11%204.3%209.7%203l.74-.73ZM6%2010.5a4.5%204.5%200%201%200%209%200%204.5%204.5%200%200%200-9%200Zm1%200a3.5%203.5%200%200%201%205.6-2.8l-4.9%204.9a3.48%203.48%200%200%201-.7-2.1Zm3.5%203.5c-.79%200-1.51-.26-2.1-.7l4.9-4.9a3.5%203.5%200%200%201-2.8%205.6Z%22%20fill%3D%22black%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+    padding-top:8px;
+    padding-right:2px;
+    height:100%;
+    background-color: #f3f2f1;
+    
+}
+
+div [dianamics_uneditable="true"]:focus-within::after {
+    color: gray;
+    content: url('data:image/svg+xml;%20charset=utf8,%20%3Csvg%20aria-hidden%3D%22true%22%20width%3D%2214%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12.44%201.56a1.91%201.91%200%200%200-2.7%200l-7.4%207.4c-.18.18-.32.4-.4.64l-.91%202.74a.5.5%200%200%200%20.63.63l2.74-.91c.24-.08.46-.22.65-.4l.06-.06a5.53%205.53%200%200%201-.1-1.31l-.67.66a.65.65%200%200%201-.26.16l-1.79.6.6-1.8c.03-.09.08-.18.16-.25L9%203.71%2010.3%205h-.01a5.58%205.58%200%200%201%201.3.11l.85-.84c.75-.75.75-1.96%200-2.7Zm-2%20.7a.91.91%200%201%201%201.3%201.3L11%204.3%209.7%203l.74-.73ZM6%2010.5a4.5%204.5%200%201%200%209%200%204.5%204.5%200%200%200-9%200Zm1%200a3.5%203.5%200%200%201%205.6-2.8l-4.9%204.9a3.48%203.48%200%200%201-.7-2.1Zm3.5%203.5c-.79%200-1.51-.26-2.1-.7l4.9-4.9a3.5%203.5%200%200%201-2.8%205.6Z%22%20fill%3D%22black%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+    padding-top:8px;
+    padding-right: 2px;
+    height:100%;
+    background-color: #f3f2f1;
+    
+}
+
+/*
+div [dianamics_uneditable="true"], div [dianamics_uneditable="true"] label{
+    background-color: "#F3F2F1";
+}
+div [dianamics_uneditable="true"]:focus-within::after div, label {
+    background-color: "#F3F2F1";
+}
+div [dianamics_uneditable="true"]:hover::after div, label{
+    background-color: "#F3F2F1";
+}*/
 
 /*
 data:image/svg+xml;%20charset=utf8,%20
 +encodeURIComponent(svg)
 */
+
+/*add class non-editable-cell: gray background*/
