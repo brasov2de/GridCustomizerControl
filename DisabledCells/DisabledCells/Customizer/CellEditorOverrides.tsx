@@ -42,7 +42,7 @@ export const generateCellEditorOverrides = (requestManager: RequestManager)=>{
      return null;
     }, 
     ["TwoOptions"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {     
-      renderDisabledCell(defaultProps, rendererParams, requestManager);
+      //renderDisabledCell(defaultProps, rendererParams, requestManager);
       return null;
     }
   }

@@ -10,10 +10,13 @@ export function getIsAsyncDisabled(columnName: string, value: any): boolean | un
     if(columnName=="crec8_city" || columnName=="diana_technologycode"){
         return false;
     }
-    if(columnName=="diana_technologycode" || columnName=="diana_allowmail"){         
+    if(columnName=="diana_technologycode"){         
         return false;
     }
     if(columnName=="gendercode"){        
+        return true;
+    }
+    if(columnName==="diana_allowmail"){//} && value===true){
         return true;
     }
 }

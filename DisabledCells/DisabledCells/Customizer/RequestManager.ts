@@ -19,6 +19,7 @@ export class RequestManager{
                     if(myCache[id]==null){ //otherwise I gerenarate different values for same id if the user clicks arround
                         (myCache as any)[id] = {
                                 gendercode : Math.random()>0.5,
+                                diana_allowmail : Math.random()>0.5,
                             }    
                     }
                 });             
