@@ -1,8 +1,11 @@
 import { generateCellEditorOverrides } from "./Customizer/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/CellRendererOverrides";
 import { PAOneGridCustomizer } from "./Customizer/PAGridTypes";
+import { RequestManager } from "./Customizer/RequestManager";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
+
+const DisabledCellsCache = {};
 
 export class DisabledCells implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -26,11 +29,12 @@ export class DisabledCells implements ComponentFramework.ReactControl<IInputs, I
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        const eventName = context.parameters.EventName.raw;                 
+        const eventName = context.parameters.EventName.raw;      
+        const requestManager = new RequestManager();           
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(), 
-                cellEditorOverrides : generateCellEditorOverrides()
+                cellRendererOverrides: generateCellRendererOverrides(requestManager), 
+                cellEditorOverrides : generateCellEditorOverrides(requestManager)
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }                

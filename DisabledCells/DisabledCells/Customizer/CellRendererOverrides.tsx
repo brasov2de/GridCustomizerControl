@@ -1,23 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { CellRendererOverrides, CellRendererProps, GetRendererParams } from './PAGridTypes';
+import { CellRendererOverrides, CellRendererProps, GetRendererParams, RECID } from './PAGridTypes';
+import { RequestManager } from './RequestManager';
+import { getIsAsyncDisabled } from './DisabledCellsList';
 
-
-export const generateCellRendererOverrides = () => {
-    const cellRendererOverrides: CellRendererOverrides = {
-        ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            // TODO: Add your custom cell editor overrides here
-            const column = rendererParams.colDefs[rendererParams.columnIndex];  
-            if(props.columnEditable===false){
-                return null;
+function renderDisabledCell(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager){    
+    const column = rendererParams.colDefs[rendererParams.columnIndex]; 
+    const isAsync = getIsAsyncDisabled(column.name, props.value); 
+    if(isAsync==null || props.columnEditable===false){
+        return null
+    }
+    const id: string = (rendererParams.rowData as any)[RECID];
+    const disabledCache = requestManager.getCached(id);
+    if(isAsync===true && disabledCache==null){
+        requestManager.getRecords(id).then(((cellContainer) => (disabledData)=>{
+            if(disabledData?.[column.name]===true){
+                console.log(`RequestManager resolved for ${id}: ${disabledData?.[column.name]}`);
+                cellContainer?.setAttribute("dianamics_uneditable", "true");
             }
-            if(column.name=="diana_relatedusers" && props.value=="PCF"){               
-                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
-              }
-              if(column.name=="crec8_city" || column.name=="diana_technologycode"){         
-                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
-              }
-            console.log(`${column.name}  - ${props.columnEditable}`);                 
+        })((props as any).cellContainerElement));
+    }
+    else{
+        //sync or already cached
+        if(isAsync===false || disabledCache?.[column.name]===true){
+            (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");
+        }
+    }    
+}
+
+
+export const generateCellRendererOverrides = (requestManager: RequestManager) => {
+    const cellRendererOverrides: CellRendererOverrides = {
+        ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {                       
+            renderDisabledCell(props, rendererParams,  requestManager); 
             return null;
         },
         ["TextArea"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
@@ -33,20 +48,11 @@ export const generateCellRendererOverrides = () => {
             return null;
         }, 
         ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {            
-          const f = props.formattedValue;
-          const column = rendererParams.colDefs[rendererParams.columnIndex];  
-          if(props.columnEditable===false){
-              return null;
-          }
-         
-            if(column.name=="diana_technologycode"){         
-                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                  
-            }
-        
+          renderDisabledCell(props, rendererParams,  requestManager);         
           return null;    
         }, 
         ["TwoOptions"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {     
-            const p = props.formattedValue
+           renderDisabledCell(props, rendererParams,  requestManager);
             return null;
         },          
         ["Lookup"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
