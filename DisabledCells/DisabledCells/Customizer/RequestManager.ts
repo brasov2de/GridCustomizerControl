@@ -16,7 +16,7 @@ export class RequestManager{
         const result = await new Promise((resolve, reject)=>{
             window.setTimeout(()=>{
                 ids.forEach((id)=>{
-                    if(myCache[id]==null){ //otherwise I gerenarate different values if the user clicks arround
+                    if(myCache[id]==null){ //otherwise I gerenarate different values for same id if the user clicks arround
                         (myCache as any)[id] = {
                                 gendercode : Math.random()>0.5,
                             }    
