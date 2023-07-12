@@ -42,6 +42,7 @@ export const generateCellEditorOverrides = (requestManager: RequestManager)=>{
      return null;
     }, 
     ["TwoOptions"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {     
+      //no need to stop editing here, since the user can start editing only if our own cellRenderer allows it
       //renderDisabledCell(defaultProps, rendererParams, requestManager);
       return null;
     }
