@@ -17,13 +17,13 @@ function renderDisabledCell(defaultProps: CellEditorProps, rendererParams: GetEd
       //the data was requested by the cell renderer, but the promise is not back yet
       //disable the cell fow now
       console.warn(`render for cell editor ${id} is async, but not resolved yet. Cell will be disabled`);
-      rendererParams.stopEditing();
+      rendererParams.stopEditing(true);
       //don't set the styles on disabled yet
   }
   else{
      // sync or already cached
     if(isAsync===false || disabledCache?.[column.name]===true){ 
-      rendererParams.stopEditing();
+      rendererParams.stopEditing(true);
       console.log(`Disabling cell editor ${id} for column ${column.name}. Value: ${defaultProps.value}`, rendererParams.rowData);    
       (defaultProps as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");
     }
