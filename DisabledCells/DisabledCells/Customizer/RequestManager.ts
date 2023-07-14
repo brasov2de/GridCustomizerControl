@@ -20,6 +20,7 @@ export class RequestManager{
                         (myCache as any)[id] = {
                                 gendercode : Math.random()>0.5,
                                 diana_allowmail : Math.random()>0.5,
+                                diana_technologycode : Math.random()>0.5
                             }    
                     }
                 });             

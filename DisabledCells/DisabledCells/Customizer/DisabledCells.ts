@@ -18,8 +18,8 @@ export function getCellDisabledInfo(props: CellRendererProps | CellEditorProps, 
     const column = rendererParams.colDefs[rendererParams.columnIndex]; 
     const columnName = column.name;
     const value = props.value;
-    const isAsync = columnName=="gendercode" || columnName==="diana_allowmail";
-    const isSync = (column.name=="diana_relatedusers" && props.value=="PCF") || columnName=="crec8_city" || columnName=="diana_technologycode";
+    const isAsync = columnName=="gendercode" || columnName==="diana_allowmail" || columnName=="diana_technologycode";
+    const isSync = (column.name=="diana_relatedusers" && props.value=="PCF") || columnName=="crec8_city";
 
     if((!isAsync && !isSync) || ((props as CellRendererProps).columnEditable===false || (column as any).editable===false)){
         return undefined;
