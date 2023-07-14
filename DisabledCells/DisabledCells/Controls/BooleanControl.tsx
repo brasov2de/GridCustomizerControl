@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RequestManager } from "./RequestManager";
+import { RequestManager } from "../Customizer/RequestManager";
 import { Toggle } from "@fluentui/react";
 
 export interface IBooleanDisabledControlProps {
@@ -12,7 +12,7 @@ export interface IBooleanDisabledControlProps {
     onClick ?: () => void;
     }
 
-export const BooleanDisabledControl = React.memo(function BooleanControlRaw({rowId, requestManager, onLabel, offLabel, value, onClick, name}: IBooleanDisabledControlProps){    
+export const BooleanControl = React.memo(function BooleanControlRaw({rowId, requestManager, onLabel, offLabel, value, onClick, name}: IBooleanDisabledControlProps){    
     const [isDisabled, setIsDisabled] = React.useState<boolean>(true);    
     const mounted = React.useRef(false);
 
