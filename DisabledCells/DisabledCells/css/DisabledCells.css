@@ -64,6 +64,11 @@ div [role="gridcell"][col-id="diana_relatedusers"]:focus-within::after {
     padding-left: 5px;
     margin-top: 5px;
 }
+.dianamics_cell .link_label, .dianamics_cell .text_label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 div[dianamics_uneditable]{
     background-color: #f3f2f1;

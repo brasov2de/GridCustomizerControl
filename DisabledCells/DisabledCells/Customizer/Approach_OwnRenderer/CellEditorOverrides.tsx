@@ -19,8 +19,7 @@ function handleDisableCell(defaultProps: CellEditorProps, rendererParams: GetEdi
   else{
      // sync or already cached
     if(cellInfo.isAsync===false || disabledCache?.[cellInfo.columnName]===true){ 
-      rendererParams.stopEditing(true);    
-     // (defaultProps as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");
+      rendererParams.stopEditing(true);         
     }
     
   }    
@@ -28,19 +27,39 @@ function handleDisableCell(defaultProps: CellEditorProps, rendererParams: GetEdi
 
 export const generateCellEditorOverrides = (requestManager: RequestManager)=>{
   const cellEditorOverrides: CellEditorOverrides = {
-    ["Text"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {    
-      handleDisableCell(defaultProps, rendererParams, requestManager);            
-      return null;
-    },
-    ["OptionSet"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {   
-      handleDisableCell(defaultProps, rendererParams, requestManager);              
-     return null;
-    }, 
-    ["TwoOptions"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {     
-      handleDisableCell(defaultProps, rendererParams, requestManager);            
-      //no need to stop editing here, since the user can start editing only if our own cellRenderer allows it      
-      return null;
-    }
+    ["Text"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {                       
+      handleDisableCell(props, rendererParams, requestManager);            
+      return null;            
+  },
+  ["TextArea"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {
+    handleDisableCell(props, rendererParams, requestManager);            
+    return null;
+  },
+  ["Email"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {
+    handleDisableCell(props, rendererParams, requestManager);            
+    return null;
+  },
+  ["Phone"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {
+    handleDisableCell(props, rendererParams, requestManager);            
+    return null;
+  },
+  ["URL"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {
+    handleDisableCell(props, rendererParams, requestManager);             
+    return null;
+  }, 
+  ["OptionSet"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {            
+    handleDisableCell(props, rendererParams, requestManager);          
+    return null;
+  }, 
+  ["TwoOptions"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {    
+    handleDisableCell(props, rendererParams, requestManager);        
+    return null;
+  },          
+  ["Lookup"]: (props: CellEditorProps, rendererParams: GetEditorParams) => {
+    handleDisableCell(props, rendererParams, requestManager);          
+    return null;
+  }   
+  
   }
   return cellEditorOverrides;
 }

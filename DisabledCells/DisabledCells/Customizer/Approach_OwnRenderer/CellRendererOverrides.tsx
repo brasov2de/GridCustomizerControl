@@ -5,6 +5,8 @@ import { RequestManager } from '../RequestManager';
 import { IDisabledCellInfo, getCellDisabledInfo } from '../DisabledCells';
 import { BooleanControl } from '../../Controls/BooleanControl';
 import { OptionSetControl } from '../../Controls/OptionsetControl';
+import { TextControl } from '../../Controls/TextControl';
+import { LinkControl } from '../../Controls/Link';
 
 //return value says if the cell is disabled
 function handleDisabledRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager): IDisabledCellInfo | null{    
@@ -39,11 +41,50 @@ function booleanRenderer(props: CellRendererProps, rendererParams: GetRendererPa
         return (<BooleanControl 
                     name={cellInfo.columnName}
                     rowId={cellInfo.id}
-                    requestManager={requestManager} 
+                    requestManager={cellInfo.isAsync ? requestManager : null} 
                     onLabel={(cellInfo.column as any).customizerParams?.labels?.onText} 
                     offLabel={(cellInfo.column as any).customizerParams?.labels?.offText} 
                     value={props.value as boolean|undefined}
                     onClick={props.startEditing}
+                />);                      
+        }
+        return null;        
+} 
+
+function textRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager){
+    const cellInfo = getCellDisabledInfo(props, rendererParams);
+    if(cellInfo==null){
+        return null;
+    } 
+    const disabledCache = requestManager.getCached(cellInfo.id);
+    if(cellInfo.isAsync===false || disabledCache==null || disabledCache?.[cellInfo.columnName]===true){      
+        return (<TextControl 
+                    name={cellInfo.columnName}
+                    rowId={cellInfo.id}
+                    requestManager={cellInfo.isAsync ? requestManager : null} 
+                    value={props.value as string}
+                    formattedValue={props.formattedValue ?? ""}
+                    onClick={props.startEditing}
+                />);                      
+        }
+        return null;        
+} 
+
+function linkRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager, url: string){
+    const cellInfo = getCellDisabledInfo(props, rendererParams);
+    if(cellInfo==null){
+        return null;
+    } 
+    const disabledCache = requestManager.getCached(cellInfo.id);
+    if(cellInfo.isAsync===false || disabledCache==null || disabledCache?.[cellInfo.columnName]===true){      
+        return (<LinkControl 
+                    name={cellInfo.columnName}
+                    rowId={cellInfo.id}
+                    requestManager={cellInfo.isAsync ? requestManager : null} 
+                    value={props.value as string}
+                    formattedValue={props.formattedValue ?? ""}
+                    onClick={props.startEditing}
+                    url={url}
                 />);                      
         }
         return null;        
@@ -73,20 +114,19 @@ function optionsetRenderer(props: CellRendererProps, rendererParams: GetRenderer
 export const generateCellRendererOverrides = (requestManager: RequestManager) => {
     const cellRendererOverrides: CellRendererOverrides = {
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {                       
-            handleDisabledRenderer(props, rendererParams,  requestManager); 
-            return null;
+            return textRenderer(props, rendererParams,  requestManager);             
         },
         ["TextArea"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
             return null;
         },
         ["Email"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return null;
+            return linkRenderer(props, rendererParams, requestManager, `mailto:${props.value}`);
         },
         ["Phone"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return null;
+            return linkRenderer(props, rendererParams, requestManager, `tel:${props.value}`);
         },
         ["URL"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return null;
+            return linkRenderer(props, rendererParams, requestManager, `${props.value}`);
         }, 
         ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {            
           return optionsetRenderer(props, rendererParams, requestManager);
@@ -95,12 +135,9 @@ export const generateCellRendererOverrides = (requestManager: RequestManager) =>
            return booleanRenderer(props, rendererParams, requestManager);
         },          
         ["Lookup"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return null;
-        }, 
-        ["MultiSelectPicklist"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return null;
-        }
-        
+            return linkRenderer(props, rendererParams, requestManager, "");
+        }       
+        //MultiSelectPicklist
         //, "Customer", "Owner"
         //, "Integer", "Currency", "Decimal", "FloatingPoint", "AutoNumber", "DateOnly", "DateAndTime"
       

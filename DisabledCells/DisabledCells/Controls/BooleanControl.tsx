@@ -6,7 +6,7 @@ import { useIsDisabled } from "./useIsDisabled";
 export interface IBooleanDisabledControlProps {
     name : string;
     rowId : string;  
-    requestManager : RequestManager;   
+    requestManager : RequestManager | null;   
     onLabel: string;
     offLabel: string;
     value : boolean | null |undefined;
