@@ -38,14 +38,14 @@ function booleanRenderer(props: CellRendererProps, rendererParams: GetRendererPa
         return (<BooleanControl 
                     name={cellInfo.columnName}
                     rowId={cellInfo.id}
-                    requestManager={requestManager} 
+                    requestManager={cellInfo.isAsync ? requestManager : null} 
                     onLabel={(cellInfo.column as any).customizerParams?.labels?.onText} 
                     offLabel={(cellInfo.column as any).customizerParams?.labels?.offText} 
                     value={props.value as boolean|undefined}
                     onClick={props.startEditing}
                 />);                      
         }
-        return null;        
+        return null;     
 } 
 
 
