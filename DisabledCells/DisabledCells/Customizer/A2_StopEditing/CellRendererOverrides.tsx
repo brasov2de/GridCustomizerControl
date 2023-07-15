@@ -49,7 +49,7 @@ function booleanRenderer(props: CellRendererProps, rendererParams: GetRendererPa
 } 
 
 
-export const generateCellRendererOverrides = (requestManager: RequestManager) => {
+export const generateCellRendererOverrides = (requestManager: RequestManager, navigation: ComponentFramework.Navigation) => {
     const cellRendererOverrides: CellRendererOverrides = {
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {                       
             handleDisabledRenderer(props, rendererParams,  requestManager); 

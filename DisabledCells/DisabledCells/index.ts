@@ -3,11 +3,10 @@ import { RequestManager } from "./Customizer/RequestManager";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 
-
+/*
 import { generateCellEditorOverrides } from "./Customizer/A1_MyRendererSync/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A1_MyRendererSync/CellRendererOverrides";
-
-
+*/
 /*
 import { generateCellEditorOverrides } from "./Customizer/A1_MyRenderer/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A1_MyRenderer/CellRendererOverrides";
@@ -16,10 +15,10 @@ import { generateCellRendererOverrides } from "./Customizer/A1_MyRenderer/CellRe
 import { generateCellEditorOverrides } from "./Customizer/A2_StopEditing/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A2_StopEditing/CellRendererOverrides";
 */
-/*
+
 import { generateCellEditorOverrides } from "./Customizer/A3_MyRendererAndEditor/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A3_MyRendererAndEditor/CellRendererOverrides";
-*/
+
 
 export class DisabledCells implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
