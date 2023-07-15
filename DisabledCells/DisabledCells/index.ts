@@ -4,13 +4,18 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 
 
-import { generateCellEditorOverrides } from "./Customizer/Approach_OwnRenderer/CellEditorOverrides";
-import { generateCellRendererOverrides } from "./Customizer/Approach_OwnRenderer/CellRendererOverrides";
+import { generateCellEditorOverrides } from "./Customizer/A1_MyRenderer/CellEditorOverrides";
+import { generateCellRendererOverrides } from "./Customizer/A1_MyRenderer/CellRendererOverrides";
 
 /*
-import { generateCellEditorOverrides } from "./Customizer/Approach_StopEditing/CellEditorOverrides";
-import { generateCellRendererOverrides } from "./Customizer/Approach_StopEditing/CellRendererOverrides";
+import { generateCellEditorOverrides } from "./Customizer/A2_StopEditing/CellEditorOverrides";
+import { generateCellRendererOverrides } from "./Customizer/A2_StopEditing/CellRendererOverrides";
 */
+/*
+import { generateCellEditorOverrides } from "./Customizer/A3_MyRendererAndEditor/CellEditorOverrides";
+import { generateCellRendererOverrides } from "./Customizer/A3_MyRendererAndEditor/CellRendererOverrides";
+*/
+
 export class DisabledCells implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
@@ -38,7 +43,7 @@ export class DisabledCells implements ComponentFramework.ReactControl<IInputs, I
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
                 cellRendererOverrides: generateCellRendererOverrides(requestManager, context.navigation), 
-                cellEditorOverrides : generateCellEditorOverrides(requestManager)
+                cellEditorOverrides : generateCellEditorOverrides(requestManager, context.navigation)
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            
         }                

@@ -26,7 +26,7 @@ function handleDisableCell(defaultProps: CellEditorProps, rendererParams: GetEdi
   }    
 }
 
-export const generateCellEditorOverrides = (requestManager: RequestManager)=>{
+export const generateCellEditorOverrides = (requestManager: RequestManager, navigation: ComponentFramework.Navigation)=>{
   const cellEditorOverrides: CellEditorOverrides = {
     ["Text"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {    
       handleDisableCell(defaultProps, rendererParams, requestManager);            
