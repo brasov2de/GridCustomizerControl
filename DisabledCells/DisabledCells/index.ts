@@ -3,14 +3,14 @@ import { RequestManager } from "./Customizer/RequestManager";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 
-/*
+
 import { generateCellEditorOverrides } from "./Customizer/Approach_OwnRenderer/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/Approach_OwnRenderer/CellRendererOverrides";
-*/
 
+/*
 import { generateCellEditorOverrides } from "./Customizer/Approach_StopEditing/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/Approach_StopEditing/CellRendererOverrides";
-
+*/
 export class DisabledCells implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
     private notifyOutputChanged: () => void;
@@ -37,7 +37,7 @@ export class DisabledCells implements ComponentFramework.ReactControl<IInputs, I
         const requestManager = new RequestManager();           
         if (eventName) {
             const paOneGridCustomizer: PAOneGridCustomizer = { 
-                cellRendererOverrides: generateCellRendererOverrides(requestManager), 
+                cellRendererOverrides: generateCellRendererOverrides(requestManager, context.navigation), 
                 cellEditorOverrides : generateCellEditorOverrides(requestManager)
             };
             (context as any).factory.fireEvent(eventName, paOneGridCustomizer);            

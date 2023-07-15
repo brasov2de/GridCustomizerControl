@@ -70,7 +70,7 @@ function textRenderer(props: CellRendererProps, rendererParams: GetRendererParam
         return null;        
 } 
 
-function linkRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager, url: string){
+function linkRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager, url: string, navigate ?: ()=>void){
     const cellInfo = getCellDisabledInfo(props, rendererParams);
     if(cellInfo==null){
         return null;
@@ -84,7 +84,8 @@ function linkRenderer(props: CellRendererProps, rendererParams: GetRendererParam
                     value={props.value as string}
                     formattedValue={props.formattedValue ?? ""}
                     onClick={props.startEditing}
-                    url={url}
+                    url={url}  
+                    navigate={navigate}              
                 />);                      
         }
         return null;        
@@ -111,7 +112,7 @@ function optionsetRenderer(props: CellRendererProps, rendererParams: GetRenderer
 }
 
 
-export const generateCellRendererOverrides = (requestManager: RequestManager) => {
+export const generateCellRendererOverrides = (requestManager: RequestManager, navigation: ComponentFramework.Navigation) => {
     const cellRendererOverrides: CellRendererOverrides = {
         ["Text"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {                       
             return textRenderer(props, rendererParams,  requestManager);             
@@ -135,7 +136,10 @@ export const generateCellRendererOverrides = (requestManager: RequestManager) =>
            return booleanRenderer(props, rendererParams, requestManager);
         },          
         ["Lookup"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {
-            return linkRenderer(props, rendererParams, requestManager, "");
+            const navigate = ()=>{
+                navigation.openForm({entityId: (props.value as any)?.id?.guid , entityName: (props.value as any)?.etn ?? ""});
+            }
+            return linkRenderer(props, rendererParams, requestManager, "", navigate);
         }       
         //MultiSelectPicklist
         //, "Customer", "Owner"
