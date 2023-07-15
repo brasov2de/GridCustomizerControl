@@ -4,9 +4,14 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 
 
+import { generateCellEditorOverrides } from "./Customizer/A1_MyRendererSync/CellEditorOverrides";
+import { generateCellRendererOverrides } from "./Customizer/A1_MyRendererSync/CellRendererOverrides";
+
+
+/*
 import { generateCellEditorOverrides } from "./Customizer/A1_MyRenderer/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A1_MyRenderer/CellRendererOverrides";
-
+*/
 /*
 import { generateCellEditorOverrides } from "./Customizer/A2_StopEditing/CellEditorOverrides";
 import { generateCellRendererOverrides } from "./Customizer/A2_StopEditing/CellRendererOverrides";

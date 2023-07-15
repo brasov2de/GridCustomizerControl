@@ -8,28 +8,6 @@ import { OptionSetControl } from '../../Controls/OptionsetControl';
 import { TextControl } from '../../Controls/TextControl';
 import { LinkControl } from '../../Controls/Link';
 
-//return value says if the cell is disabled
-function handleDisabledRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager): IDisabledCellInfo | null{    
-    const cellInfo = getCellDisabledInfo(props, rendererParams);
-    if(cellInfo==null){
-        return null;
-    }
-    const disabledCache = requestManager.getCached(cellInfo.id);
-    if(cellInfo.isAsync===true && disabledCache==null){
-        requestManager.getRecords(cellInfo.id).then((disabledData)=>{
-            if(disabledData?.[cellInfo.columnName]===true){
-                console.log(`RequestManager resolved for ${cellInfo.id}: ${disabledData?.[cellInfo.columnName]}`);                
-                (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");
-            }
-        })
-    }
-    else{
-        if(cellInfo.isAsync===false || disabledCache?.[cellInfo.columnName]===true){            
-            (props as any).cellContainerElement?.setAttribute("dianamics_uneditable", "true");                        
-        }
-    }
-    return cellInfo;    
-}
 
 function booleanRenderer(props: CellRendererProps, rendererParams: GetRendererParams, requestManager: RequestManager){
     const cellInfo = getCellDisabledInfo(props, rendererParams);

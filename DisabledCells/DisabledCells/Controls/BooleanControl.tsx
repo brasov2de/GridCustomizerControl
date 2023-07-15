@@ -14,6 +14,7 @@ export interface IBooleanDisabledControlProps {
     }
 
 export const BooleanControl = React.memo(function BooleanControlRaw({rowId, requestManager, onLabel, offLabel, value, onClick, name}: IBooleanDisabledControlProps){        
+    //if you have only sync disabling, replace next line with const isDisabled= true;
     const [isDisabled] = useIsDisabled(requestManager,rowId, name);    
     
     return (<div style={{    display: "inline-flex", alignItems: "center",  width: "100%",  "flexDirection": "column"}}>
