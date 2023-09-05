@@ -12,7 +12,8 @@ export interface IKey{
 
 export class RequestManager{
 
-    private cache = null  as any;    
+    private cache = null  as any;  
+    private requestCache = {};  
     private webApi : ComponentFramework.WebApi;
     private opportunityId ?: string;
     private target : EventTarget;
@@ -102,8 +103,7 @@ export class RequestManager{
             return cached;
         }
         const results = await this.debouncedAccumulatedFetch({parentId, id, year} as IKey)    
-        console.log(`RequestManager: getRecords ${id} ${JSON.stringify(results)}`); 
-        this.target.dispatchEvent( new CustomEvent("onSumChanged", {detail: parentId}));
+        console.log(`RequestManager: getRecords ${id} ${JSON.stringify(results)}`);         
         return results;
     }    
 

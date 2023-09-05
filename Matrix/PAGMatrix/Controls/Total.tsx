@@ -21,8 +21,8 @@ export const TotalCell = React.memo(function TotalCellRaw({parentId, opportunity
         };
     }, []);
 
-    const handleSumChanged = (id:string) => {                
-        if(id != parentId){
+    const handleSumChanged = (ev:any) => {                
+        if(ev.detail != parentId){
             return;
         }
         requestManager?.getSumByParent(parentId)
@@ -43,7 +43,7 @@ export const TotalCell = React.memo(function TotalCellRaw({parentId, opportunity
         };
     }, []);
 
-  /*  React.useEffect(() => {
+    React.useEffect(() => {
         if(!parentId || !requestManager){
             return;
         }   
@@ -57,7 +57,7 @@ export const TotalCell = React.memo(function TotalCellRaw({parentId, opportunity
             }
         });
     
-    },[parentId, opportunityId]);  */
+    },[parentId, opportunityId]);  
     
     /*
     function startEditing(){
