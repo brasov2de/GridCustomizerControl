@@ -9,11 +9,12 @@ export const generateCellRendererOverrides = (colors : any) => {
             // TODO: Add your custom cell editor overrides here
             const column = rendererParams.colDefs[rendererParams.columnIndex];
             if(column.name==="diana_city"){
-                `Lives in ${props.formattedValue}`;
+                return <label>`Lives in ${props.formattedValue}`</label>;
             }
             return null;
         },
-        ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {            
+        ["OptionSet"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {     
+            console.log("render optionset", rendererParams.rowData);       
            const onCellClicked = (event?: React.MouseEvent<HTMLElement, MouseEvent> | MouseEvent) => {
                 if(props.startEditing) props.startEditing();
                 console.log("onCellClicked----------");
@@ -23,15 +24,16 @@ export const generateCellRendererOverrides = (colors : any) => {
                 {props.formattedValue}
             </div>)             
         }, 
-        ["TwoOptions"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {     
+        ["TwoOptions"]: (props: CellRendererProps, rendererParams: GetRendererParams) => {                 
             const column = rendererParams.colDefs[rendererParams.columnIndex];                         
-            if(column.name==="diana_ishappy"){                      
-                const onCellClicked = () => {
-                    if(props.startEditing) props.startEditing();                  
+            if(column.name==="diana_ishappy"){  
+                console.log("render boolean", rendererParams.rowData);                    
+                const onCellClicked = () => {                    
+                    if(props.startEditing) props.startEditing(!props.value);                  
                 } 
-             const smiley = props.value === "1" ? "Emoji2" : "Sad";
+             const smiley = props.value ? "Emoji2" : "Sad";
               const label = props.formattedValue;
-              return <div onClick={onCellClicked} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: props.value === "1" ? "green" : "red"}}></Icon></div>
+              return <div onClick={onCellClicked} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: props.value  ? "green" : "red"}}></Icon></div>
             }
           }
     }

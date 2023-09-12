@@ -10,6 +10,7 @@ export const generateCellEditorOverrides = (colors : any)=>{
       return null
     },
     ["OptionSet"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {
+      console.log("Editor optionset", rendererParams.rowData);
       const defaultValue = defaultProps.value as number;
      
       const cell = rendererParams.colDefs[rendererParams.columnIndex];
@@ -21,8 +22,7 @@ export const generateCellEditorOverrides = (colors : any)=>{
         });
 
       const onChange=(value: number | null) =>{
-        rendererParams.onCellValueChanged(value);      
-        //rendererParams.stopEditing(false);
+        rendererParams.onCellValueChanged(value);              
       }
   
       return <ColorfulDropDown defaultValue={defaultValue} options = {options} onChange={onChange}/>
@@ -30,14 +30,15 @@ export const generateCellEditorOverrides = (colors : any)=>{
     }, 
     ["TwoOptions"]: (defaultProps: CellEditorProps, rendererParams: GetEditorParams) => {     
       const column = rendererParams.colDefs[rendererParams.columnIndex];             
-      if(column.name==="diana_ishappy"){        
-        const value  = defaultProps.value as string === "1" ? false : true;      
-        rendererParams.onCellValueChanged(value===true ? "1" : "0"); //autochange value on click
-        const smiley = value === true ? "Emoji2" : "Sad";
-        const label = value === true ? (column as any).customizerParams.labels.onText : (column as any).customizerParams.labels.offText;
+      if(column.name==="diana_ishappy"){    
+        console.log("Editor boolean", rendererParams.rowData);    
+        const value  = defaultProps.value == true;      
+        rendererParams.onCellValueChanged(value); //autochange value on click
+        const smiley = value ? "Emoji2" : "Sad";
+        const label = value ? (column as any).customizerParams.labels.onText : (column as any).customizerParams.labels.offText;
         const onChange=() =>{          
-          rendererParams.onCellValueChanged(value ? "0" : "1");      
-          rendererParams.stopEditing(false);
+          rendererParams.onCellValueChanged(!value);      
+          rendererParams.stopEditing(false); //no rerender without this.
         }
         return <div onClick={onChange} style={{textAlign: "center"}}><Icon iconName={smiley} style={{color: value === true ? "green" : "red"}}></Icon></div>
       }
