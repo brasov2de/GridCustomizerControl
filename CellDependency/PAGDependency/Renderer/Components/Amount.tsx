@@ -12,9 +12,11 @@ interface IAmountProps {
 
 const rules = new Map<string, any>(Object.entries({
     //Plan A
-    "341560000" : (value: number) => value > 10000 ? "red" : "green",
+    "341560000" : (value: number) => value > 10000 ? "orange" : "green",
     //Plan B
-    "341560001" : (value: number) => value > 100000 ? "orange" : "green"
+    "341560001" : (value: number) => value > 100000 ? "red" : "green",
+     //Plan C
+     "341560002" : (value: number) => value > 500000 ? "darkred" : "green"
     })
 );
 
